@@ -1,24 +1,60 @@
-# Secrets
+# Secrets and environment files
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
 
-# System
+# System files
 .DS_Store
 Thumbs.db
+Desktop.ini
 
-# IDEs
+# Editors and workspace settings
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Node
+# Node.js dependencies and caches
 node_modules/
-npm-debug.log
-yarn-error.log
+**/node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.yarn-cache/
+.vite/
+.angular/cache/
+**/.angular/
+**/.cache/
+**/dist/
+**/build/
+**/coverage/
+**/*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Go
-# Handled in backend/.gitignore
+# Go build artifacts
+backend/api_bin
+backend/main
+backend/test_main
+backend/*.exe
+backend/*.test
+backend/*.out
+backend/bin/
+**/*.exe
+**/*.test
+**/*.out
 
-# Build & Test
-.vercel
-coverage
+# Local infrastructure and tooling output
+.vercel/
+.turbo/
+.localstack/
+*.sqlite
+*.sqlite3
+
+# Miscellaneous archives and logs
+*.log

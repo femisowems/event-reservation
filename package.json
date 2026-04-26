@@ -1,7 +1,42 @@
 {
     "name": "booking-appointment-root",
     "private": true,
+    "version": "1.0.0",
+    "description": "Monorepo entry point for the booking appointment demo, including the Go backend, React web app, and Ionic mobile app.",
+    "license": "MIT",
+    "engines": {
+        "node": ">=20",
+        "npm": ">=10"
+    },
     "scripts": {
-        "build": "cd web && npm install && npm run build"
-    }
+        "dev": "bash ./scripts/dev-concurrent.sh",
+        "dev:no-docker": "SKIP_DOCKER=1 START_WORKER=0 bash ./scripts/dev-concurrent.sh",
+        "dev:no-docker:full": "SKIP_DOCKER=1 START_WORKER=1 bash ./scripts/dev-concurrent.sh",
+        "dev:backend": "bash ./start-backend.sh",
+        "start:infra": "docker-compose up -d postgres rabbitmq localstack",
+        "start:backend": "cd backend && go run cmd/api/main.go",
+        "start:worker": "cd backend && go run cmd/worker/main.go",
+        "build:backend": "cd backend && go build ./cmd/api ./cmd/worker",
+        "test:backend": "cd backend && go test ./...",
+        "setup:web": "npm --prefix web install",
+        "dev:web": "npm --prefix web run dev",
+        "build:web": "npm --prefix web run build",
+        "preview:web": "npm --prefix web run preview",
+        "lint:web": "npm --prefix web run lint",
+        "setup:mobile": "npm --prefix mobile install",
+        "dev:mobile": "npm --prefix mobile run start",
+        "build:mobile": "npm --prefix mobile run build",
+        "lint:mobile": "npm --prefix mobile run lint",
+        "test:mobile": "npm --prefix mobile run test",
+        "build:all": "npm run build:web && npm run build:mobile && npm run build:backend",
+        "build": "npm run build:web"
+    },
+    "keywords": [
+        "appointments",
+        "reservations",
+        "booking",
+        "go",
+        "react",
+        "ionic"
+    ]
 }

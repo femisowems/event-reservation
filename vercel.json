@@ -5,16 +5,11 @@
     "rewrites": [
         {
             "source": "/api/(.*)",
-            "destination": "backend/api/index.go"
+            "destination": "https://booking-appointment-backend-production.up.railway.app/api/$1"
         },
         {
             "source": "/(.*)",
             "destination": "/index.html"
         }
-    ],
-    "functions": {
-        "backend/api/index.go": {
-            "maxDuration": 10
-        }
-    }
+    ]
 }
