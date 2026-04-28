@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://booking-appointment-backend-production.up.railway.app'
+  apiUrl: 'http://localhost:4200/api'
 };
 
 /*

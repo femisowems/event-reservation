@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export type SyncState = 'SYNCED' | 'SYNCING' | 'OFFLINE' | 'ERROR';
 export type ConfirmationState = 'CONFIRMED' | 'PENDING' | 'FAILED';
@@ -43,25 +44,9 @@ export class ScheduleService {
     private syncState$ = new BehaviorSubject<SyncState>('SYNCED');
     private lastSyncTime$ = new BehaviorSubject<Date | null>(null);
     private pendingActions: PendingAction[] = [];
-    private apiBaseUrl = 'https://booking-appointment-backend-production.up.railway.app';
-    // Use localhost for dev if needed, or environment variable. 
-    // Ideally we should switch based on environment but for now this is what was here.
-    // wait, the user's previous error 500 showed they were using localhost in web.
-    // Mobile might be using the prod URL. I should check if I need to update this URL.
-    // The previous file content shows `apiBaseUrl` as the railway app.
-    // If I want to use my local backend, I should probably update this or use a proxy.
-    // But since I'm running `go run` locally, unless I expose it, mobile (if on device) can't see it.
-    // If mobile is browser (ionic serve), it can see localhost. 
+    private apiBaseUrl = environment.apiUrl;
 
     constructor() {
-        // If we are in dev mode (localhost), replace the URL
-        if (window.location.hostname === 'localhost') {
-            this.apiBaseUrl = 'http://localhost:8080/api';
-            // Note: Backend might need /api prefix or not depending on server.go
-            // My server.go has /api/reservations AND /events (root) AND /api/events
-            // So /api prefix is safer.
-        }
-
         this.checkOnlineStatus();
         window.addEventListener('online', () => this.handleOnline());
         window.addEventListener('offline', () => this.handleOffline());
